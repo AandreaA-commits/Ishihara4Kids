@@ -28,9 +28,6 @@ public class Question {
         return userSelectedOption;
     }
 
-    /*public String getAnomalyType() {
-        return anomalyType;
-    }*/
 
     public void setUserSelectedOption(String userSelectedOption) {
         this.userSelectedOption = userSelectedOption;
