@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context="it.unibg.cs.ishihara4kids.QuizResults">
+
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/fireworks"
+        android:layout_width="953dp"
+        android:layout_height="645dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.85"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/titleView"
+        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintWidth_percent="1"
+        app:lottie_rawRes="@raw/fireworks" />
+
+    <TextView
+        android:id="@+id/risultati"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:autoSizeMaxTextSize="50dp"
+        android:autoSizeMinTextSize="25dp"
+        android:autoSizeTextType="uniform"
+        android:fontFamily="sans-serif-black"
+
+        android:text="TextView"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.25"
+        app:layout_constraintHorizontal_bias="0.531"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleView"
+        app:layout_constraintVertical_bias="0.057"
+        app:layout_constraintWidth_percent="0.65" />
+
+    <TextView
+        android:id="@+id/titleView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:autoSizeMaxTextSize="50dp"
+        android:autoSizeMinTextSize="25dp"
+        android:autoSizeTextType="uniform"
+        android:fontFamily="@font/font1"
+        android:text="@string/ishihara4kids"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.15"
+        app:layout_constraintHorizontal_bias="0.529"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintWidth_percent="0.5" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:autoSizeMaxTextSize="40dp"
+        android:autoSizeMinTextSize="10dp"
+        android:autoSizeTextType="uniform"
+        android:background="@drawable/bottoni"
+        android:fontFamily="sans-serif-black"
+        android:text="Home"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        app:circularflow_viewCenter="@font/font1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.13"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/commento"
+        app:layout_constraintVertical_bias="0.383"
+        app:layout_constraintWidth_percent="0.2" />
+
+    <TextView
+        android:id="@+id/commento"
+        android:layout_width="0dp"
+        android:layout_height="00dp"
+        android:layout_marginTop="48dp"
+        android:autoSizeMaxTextSize="40dp"
+        android:autoSizeMinTextSize="15dp"
+        android:autoSizeTextType="uniform"
+
+        android:fontFamily="sans-serif-black"
+        android:text="TextView"
+
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@+id/fireworks"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.15"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/risultati"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintWidth_percent="0.5" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
