@@ -10,7 +10,6 @@ public class Question {
     public Question(String[] colors, String solution){
         this.colors = colors;
         this.solution = solution;
-        //this.anomalyType = anomalyType;
 
         //per default inizializzo a null la selezione dello user
         this.userSelectedOption = "";
