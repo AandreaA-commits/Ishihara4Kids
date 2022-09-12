@@ -29,7 +29,6 @@ public class QuizActivity extends AppCompatActivity {
     //reference della barra di progresso
     private ProgressBar progressBar;
 
-
     //array list contenente i 12 test
     private List<Question> questionList;
 
@@ -44,15 +43,22 @@ public class QuizActivity extends AppCompatActivity {
     //salvataggio della selezione dell'utente
     private String userSelectedOption;
 
+    //numero di cerchi generati
+    final static int numCerchi = 10000;
+
+    //fattore dimensione cerchi (più piccolo è il valore, più grandi sono i cerchi, impostare fatt<100)
+    final static int fattore = 100;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
+        //comando per nascondere l'activity bar in alto
         getSupportActionBar().hide();
 
+        //spazio per inserimneto della tavola generata nuovamente per ogni domanda
         plateIshihara = findViewById(R.id.imageView);
-      // plateIshihara = findViewById(R.id.imageView7);
 
         //reference dei bottoni selezionati
         circle = findViewById(R.id.circle);
@@ -79,84 +85,70 @@ public class QuizActivity extends AppCompatActivity {
                 "<font color=#fecc2f>s</font>";
         title.setText(Html.fromHtml(text));
 
-        //reference della progressBar
+        //settaggio della progress bar
         progressBar = findViewById(R.id.progressBar);
         progressBar.setProgress(currentQuestionPosition);
         progressBar.setMax(12);
 
         //setto a vuoto la risposta iniziale
         userSelectedOption = "";
+
+        //inizializzazione del database
         db = new QuizDB();
+
+        //get delle domande dal db appena generato
         questionList = db.getQuestions();
 
         //per ogni bottone imposto che al click, venga impostata la risposta dell'utente
-        circle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(userSelectedOption.isEmpty()){
-                    //setto la risposta dell'utente coincidente con la figuara del bottone
-                    userSelectedOption = "circle";
-                    questionList.get(currentQuestionPosition).setUserSelectedOption(userSelectedOption);
-                }
-                nextQuestion();
-
+        circle.setOnClickListener(v -> {
+            if(userSelectedOption.isEmpty()){
+                //setto la risposta dell'utente coincidente con la figuara del bottone
+                userSelectedOption = "circle";
+                questionList.get(currentQuestionPosition).setUserSelectedOption(userSelectedOption);
             }
+            nextQuestion();
+
         });
 
-        triangle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(userSelectedOption.isEmpty()){
-                    //setto la risposta dell'utente coincidente con la figuara del bottone
-                    userSelectedOption = "triangle";
-                    questionList.get(currentQuestionPosition).setUserSelectedOption(userSelectedOption);
-                }
-                nextQuestion();
+        triangle.setOnClickListener(v -> {
+            if(userSelectedOption.isEmpty()){
+                //setto la risposta dell'utente coincidente con la figuara del bottone
+                userSelectedOption = "triangle";
+                questionList.get(currentQuestionPosition).setUserSelectedOption(userSelectedOption);
             }
+            nextQuestion();
         });
 
-        heart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(userSelectedOption.isEmpty()){
-                    //setto la risposta dell'utente coincidente con la figuara del bottone
-                    userSelectedOption = "heart";
-                    questionList.get(currentQuestionPosition).setUserSelectedOption(userSelectedOption);
-                }
-                nextQuestion();
+        heart.setOnClickListener(v -> {
+            if(userSelectedOption.isEmpty()){
+                //setto la risposta dell'utente coincidente con la figuara del bottone
+                userSelectedOption = "heart";
+                questionList.get(currentQuestionPosition).setUserSelectedOption(userSelectedOption);
             }
+            nextQuestion();
         });
 
-        square.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(userSelectedOption.isEmpty()){
-                    //setto la risposta dell'utente coincidente con la figuara del bottone
-                    userSelectedOption = "square";
-                    questionList.get(currentQuestionPosition).setUserSelectedOption(userSelectedOption);
-                }
-                nextQuestion();
+        square.setOnClickListener(v -> {
+            if(userSelectedOption.isEmpty()){
+                //setto la risposta dell'utente coincidente con la figuara del bottone
+                userSelectedOption = "square";
+                questionList.get(currentQuestionPosition).setUserSelectedOption(userSelectedOption);
             }
+            nextQuestion();
         });
 
-        star.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(userSelectedOption.isEmpty()){
-                    //setto la risposta dell'utente coincidente con la figuara del bottone
-                    userSelectedOption = "star";
-                    questionList.get(currentQuestionPosition).setUserSelectedOption(userSelectedOption);
-                }
-                nextQuestion();
+        star.setOnClickListener(v -> {
+            if(userSelectedOption.isEmpty()){
+                //setto la risposta dell'utente coincidente con la figuara del bottone
+                userSelectedOption = "star";
+                questionList.get(currentQuestionPosition).setUserSelectedOption(userSelectedOption);
             }
+            nextQuestion();
         });
 
-        home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(QuizActivity.this, MainActivity.class));
-                finish();
-            }
+        home.setOnClickListener(v -> {
+            startActivity(new Intent(QuizActivity.this, MainActivity.class));
+            finish();
         });
 
     }
@@ -164,6 +156,8 @@ public class QuizActivity extends AppCompatActivity {
     private void nextQuestion() {
         //incremento la posizione dell'indice nelle domande
         currentQuestionPosition++;
+
+        //aggiorno la progress bar
         progressBar.setProgress(currentQuestionPosition);
 
         if(currentQuestionPosition<questionList.size()){
@@ -172,6 +166,8 @@ public class QuizActivity extends AppCompatActivity {
 
             //cambio il plate ishihara
             String colors[] = questionList.get(currentQuestionPosition).getColors();
+
+            //cerco nella cartella l'immagine specificata dalla soluzione della classe Question
             String image = "black_" + questionList.get(currentQuestionPosition).getSolution()+"_plate";
             buttonDrawCanvas(colors, image);
 
@@ -205,11 +201,10 @@ public class QuizActivity extends AppCompatActivity {
         return correctAnswers;
     }
 
-    //da modificare e rendere tipo nextQuestion
+    //metodo chiamato ad ogni domanda per generare i cerchi
     public void buttonDrawCanvas(String[] colors, String image){
 
         //image è l'immagine della soluzione corretta
-        //Bitmap bitmap = Bitmap.createBitmap(plateIshihara.getWidth(), plateIshihara.getHeight(), Bitmap.Config.ARGB_8888);
 
         //divido i colori tra quelli della figura e quelli dello sfondo
         String[] colorOut =new String[]{
@@ -220,7 +215,7 @@ public class QuizActivity extends AppCompatActivity {
                 colors[4], colors[5], colors[6]
         };
 
-        //CODICE PER COLORARE LE PARTI GIUSTE
+        //id dell'immagine corrispondente
         int resID = getResources().getIdentifier(image, "drawable", getPackageName());
 
         //trovo l'immagine giusta corrispondente
@@ -240,6 +235,7 @@ public class QuizActivity extends AppCompatActivity {
     }
 
 
+    //metodo chimato da buttonDrwaCanvas, piazza i cerchi sul canvas
     private void generateCircle2(Canvas canvas, Bitmap bitmap, String[] colorIn, String[] colorOut){
 
      //  canvas.setBitmap(bm1);
@@ -251,7 +247,8 @@ public class QuizActivity extends AppCompatActivity {
         Rect rettangolo = new Rect(0,0, bitmap.getWidth(), bitmap.getHeight());
         canvas.drawRect(rettangolo, white);
 
-        for (int i = 0; i < 10000; i++) {
+        //estrazione casuale di numPunti
+        for (int i = 0; i < numCerchi; i++) {
 
             int x = (int) (bitmap.getWidth() * Math.random());
             int y = (int) (bitmap.getHeight() * Math.random());
@@ -265,10 +262,10 @@ public class QuizActivity extends AppCompatActivity {
 
             if (Color.rgb(r, g, b) == Color.BLACK) {
                 p2.setColor(Color.parseColor(colorIn[(int) Math.floor((colorIn.length - 1) * Math.random())]));
-                canvas.drawCircle(x, y, (float) (bitmap.getHeight() * Math.random() / 100), p2);
+                canvas.drawCircle(x, y, (float) (bitmap.getHeight() * Math.random() / fattore), p2);
             } else {
                     p2.setColor(Color.parseColor(colorOut[(int) Math.floor((colorOut.length - 1) * Math.random())]));
-                    canvas.drawCircle(x, y, (float) (bitmap.getHeight() * Math.random() / 100), p2);
+                    canvas.drawCircle(x, y, (float) (bitmap.getHeight() * Math.random() / fattore), p2);
             }
         }
 

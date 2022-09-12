@@ -16,8 +16,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //comando per eliminare barra in alto
         getSupportActionBar().hide();
 
+        //settaggio html del titolo
         TextView title = (TextView) findViewById(R.id.titleView);
         String text = "<font color=#40a4d8>I</font>" +
                 "<font color=#33beb8>s</font>" +
@@ -37,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //metodo chiamato quando viene premuto il pulsante per cominciare il quiz
     public void launchQuiz(View view) {
-        //quiz lauch
         Intent i = new Intent(this, QuizActivity.class);
         startActivity(i);
     }

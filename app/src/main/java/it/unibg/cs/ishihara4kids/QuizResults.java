@@ -14,17 +14,32 @@ import it.unibg.cs.ishihara4kids.R;
 
 public class QuizResults extends AppCompatActivity {
 
-    private LottieAnimationView animation;
+    private LottieAnimationView animation; //animazione fuochi d'artificio
 
-    static final int numRep = 15;
+    static final int numRep = 15; //numero di ripetizioni dell'animiazione
+    static final int soglia = 10; //soglia da superare per avere vista non distorta
 
-    static final int soglia = 10;
+    //pulsante per tornare al menu
+    private Button startNewQuizBtn;
+
+    // view per la visione dei risultati
+    private TextView results;
+
+    //view per comunicare se è stata riscontrata una anomalia
+    private TextView comment;
+
+    //numero delle risposte corrette date dallo user
+    private int correctAnswers;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_results);
 
+        //rimozione della Action bar in alto
         getSupportActionBar().hide();
 
         //settaggio del titolo
@@ -44,18 +59,16 @@ public class QuizResults extends AppCompatActivity {
                 "<font color=#fecc2f>s</font>";
         title.setText(Html.fromHtml(text));
 
-        //settaggio della animazione lottie
+        //settaggio delle animazioni lottie
         animation = findViewById(R.id.fireworks);
         animation.setRepeatCount(numRep);
         animation.playAnimation();
 
-        final Button startNewQuizBtn = findViewById(R.id.button2);
-
-        final TextView results = findViewById(R.id.risultati);
-
-        final TextView comment = findViewById(R.id.commento);
-
-        final int correctAnswers = getIntent().getIntExtra("correct", 0);
+        //inizializzazione e referenze viste e pulsanti
+        startNewQuizBtn = findViewById(R.id.button2);
+        results = findViewById(R.id.risultati);
+        comment = findViewById(R.id.commento);
+        correctAnswers = getIntent().getIntExtra("correct", 0);
 
         if(correctAnswers > soglia){
             comment.setText("Nessuna anomalia visiva riscontrata!");
@@ -65,7 +78,7 @@ public class QuizResults extends AppCompatActivity {
         results.setText("Sono state riconosciute correttamente " +correctAnswers+ " immagini su 12");
 
 
-
+        //pulsante per tornare al menù principale
         startNewQuizBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
