@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import it.unibg.cs.ishihara4kids.R;
 
@@ -35,6 +36,13 @@ public class MainActivity extends AppCompatActivity {
                 "<font color=#b2c225>d</font>" +
                 "<font color=#fecc2f>s</font>";
         title.setText(Html.fromHtml(text));
+
+        //pulsante per uscire dall'applicazione
+        ImageButton exit = findViewById(R.id.exitButton);
+        exit.setOnClickListener(v -> {
+            finish();
+            System.exit(0);
+        });
 
 
     }
